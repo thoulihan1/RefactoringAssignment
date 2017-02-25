@@ -8,6 +8,7 @@
 package employee;
 
 import java.awt.Component;
+
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -47,7 +48,6 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		setSize(850, 500);
 		setLocation(350, 250);
 		setVisible(true);
-
 	}
 	// initialise container
 	public Container summaryPane() {
@@ -114,6 +114,8 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		
 		return summaryDialog;
 	}// end summaryPane
+	
+	
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == back){
@@ -126,8 +128,7 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		 private static final DecimalFormat format = new DecimalFormat(
 		 "\u20ac ###,###,##0.00" );
 
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-				int row, int column) {
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
 			Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 			 JLabel label = (JLabel) c;

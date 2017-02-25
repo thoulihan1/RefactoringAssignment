@@ -119,4 +119,6 @@ public class Employee{
 				+ "\nFirst Name: " + this.firstName + "\nGender: " + this.gender + "\nDepartment: " + this.department + "\nSalary: " + this.salary
 				+ "\nFull Time: " + bool;
 	}// end toString
+	
+	
 }// end class Employee

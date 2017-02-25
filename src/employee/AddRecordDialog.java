@@ -29,6 +29,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 	JButton save, cancel;
 	EmployeeDetails parent;
 	// constructor for add record dialog
+	
 	public AddRecordDialog(EmployeeDetails parent) {
 		setTitle("Add Record");
 		setModal(true);
@@ -48,9 +49,8 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 
 	// initialize dialog container
 	public Container dialogPane() {
-		JPanel empDetails, buttonPanel;
-		empDetails = new JPanel(new MigLayout());
-		buttonPanel = new JPanel();
+		JPanel  empDetails = new JPanel(new MigLayout());
+		JPanel buttonPanel = new JPanel();
 		JTextField field;
 
 		empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
@@ -58,8 +58,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		empDetails.add(new JLabel("ID:"), "growx, pushx");
 		empDetails.add(idField = new JTextField(20), "growx, pushx, wrap");
 		idField.setEditable(false);
-		
-
+	
 		empDetails.add(new JLabel("PPS Number:"), "growx, pushx");
 		empDetails.add(ppsField = new JTextField(20), "growx, pushx, wrap");
 
@@ -88,7 +87,8 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		cancel.addActionListener(this);
 
 		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");
-		// loop through all panel components and add fonts and listeners
+
+
 		for (int i = 0; i < empDetails.getComponentCount(); i++) {
 			empDetails.getComponent(i).setFont(this.parent.font1);
 			if (empDetails.getComponent(i) instanceof JComboBox) {
@@ -121,7 +121,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		this.parent.addRecord(theEmployee);
 		this.parent.displayRecords(theEmployee);
 	}
-
+	
 	// check for input in text fields
 	public boolean checkInput() {
 		boolean valid = true;
@@ -166,6 +166,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 			fullTimeCombo.setBackground(new Color(255, 150, 150));
 			valid = false;
 		}// end if
+		
 		return valid;
 	}// end checkInput
 
