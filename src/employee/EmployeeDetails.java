@@ -1,25 +1,27 @@
+package employee;
 
-/* * 
- * This is a menu driven system that will allow users to define a data structure representing a collection of 
+/**
+ * Created by Thomas on 2/27/17.
+ */
+
+/* *
+ * This is a menu driven system that will allow users to define a data structure representing a collection of
  * records that can be displayed both by means of a dialog that can be scrolled through and by means of a table
  * to give an overall view of the collection contents.
- * 
+ *
  * */
 
-package employee;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import net.miginfocom.swing.MigLayout;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -28,66 +30,28 @@ import java.text.DecimalFormat;
 import java.util.Random;
 import java.util.Vector;
 
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.KeyStroke;
-import javax.swing.UIManager;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
+public class EmployeeDetails extends JFrame implements  ItemListener, DocumentListener, WindowListener {
 
-import net.miginfocom.swing.MigLayout;
-
-public class EmployeeDetails extends JFrame implements ItemListener, DocumentListener, WindowListener {
-	// decimal format for inactive currency text field
-	private static final DecimalFormat format = new DecimalFormat("\u20ac ###,###,##0.00");
-	// decimal format for active currency text field
-	private static final DecimalFormat fieldFormat = new DecimalFormat("0.00");
-	// hold object start position in file
 	private long currentByteStart = 0;
 	private RandomFile application = new RandomFile();
-	// display files in File Chooser only with extension .dat
 	private FileNameExtensionFilter datfilter = new FileNameExtensionFilter("dat files (*.dat)", "dat");
-	// hold file name and path for current file in use
 	private File file;
-	// holds true or false if any changes are made for text fields
 	private boolean change = false;
-	// holds true or false if any changes are made for file content
 	boolean changesMade = false;
 	private JMenuItem open, save, saveAs, create, modify, delete, firstItem, lastItem, nextItem, prevItem, searchById,
 			searchBySurname, listAll, closeApp;
 	private JButton first, previous, next, last, add, edit, deleteButton, displayAll, searchId, searchSurname, saveChange, cancelChange;
-	
-	private JComboBox<String> genderCombo, departmentCombo, fullTimeCombo;
-	private JTextField idField, ppsField, surnameField, firstNameField, salaryField;
+
 	private static EmployeeDetails frame = new EmployeeDetails();
-	// font for labels, text fields and combo boxes
+
+	EmpDetailsPanel empDetailsPanel;
+
+
 	Font font1 = new Font("SansSerif", Font.BOLD, 16);
-	// holds automatically generated file name
 	String generatedFileName;
-	// holds current Employee object
 	Employee currentEmployee;
 	JTextField searchByIdField, searchBySurnameField;
-	// gender combo box values
-	String[] gender = { "", "M", "F" };
-	// department combo box values
-	String[] department = { "", "Administration", "Production", "Transport", "Management" };
-	// full time combo box values
-	String[] fullTime = { "", "Yes", "No" };
-	
+
 	ActionListener firstItemListener, prevItemListener, nextItemListener, lastItemListener, allItemsListener, createItemListener, modifyItemListener, deleteItemListener;
 
 	// initialize menu bar
@@ -109,12 +73,12 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		menuBar.add(recordMenu);
 		menuBar.add(navigateMenu);
 		menuBar.add(closeMenu);
-		
+
 		open = new JMenuItem("Open");
 		open.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges())
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges())
 					openFile();
 			}
 		});
@@ -122,18 +86,19 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		fileMenu.add(open);
 		open.setMnemonic(KeyEvent.VK_O);
 		open.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-		
+
+
 		save = new JMenuItem("Save");
 		save.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges())
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges())
 					saveFile();
 				change = false;
-			}		
+			}
 		});
-		
+
 		fileMenu.add(save);
 		save.setMnemonic(KeyEvent.VK_S);
 		save.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
@@ -141,7 +106,7 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		saveAs.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges())
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges())
 					saveFileAs();
 				change = false;
 			}
@@ -167,47 +132,49 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		navigateMenu.add(lastItem = new JMenuItem("Last"));
 		lastItem.addActionListener(lastItemListener);
 		navigateMenu.addSeparator();
-		
+
 		searchById = new JMenuItem("Search by ID");
 		searchById.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges())
-					displaySearchByIdDialog();
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges()){
+					if (empDetailsPanel.isSomeoneToDisplay())
+						new SearchDialog(EmployeeDetails.this, 1);
+				}
 			}
 		});
 		navigateMenu.add(searchById);
-		
+
 		searchBySurname = new JMenuItem("Search by Surname");
 		searchBySurname.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges())
-					displaySearchBySurnameDialog();
-			}	
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges())
+					if (empDetailsPanel.isSomeoneToDisplay())
+						new SearchDialog(EmployeeDetails.this, 2);
+			}
 		});
-		
-		navigateMenu.add(searchBySurname);		
+
+		navigateMenu.add(searchBySurname);
 		navigateMenu.add(listAll = new JMenuItem("List all Records")).addActionListener(allItemsListener);
 
-		
 		ActionListener closeAppListener = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges())
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges())
 					exitApp();
 			}
 		};
 		closeApp = new JMenuItem("Close");
 		closeApp.addActionListener(closeAppListener);
-		
+
 		closeMenu.add(closeApp);
 		closeApp.setMnemonic(KeyEvent.VK_F4);
 		closeApp.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.CTRL_MASK));
 
 		return menuBar;
 	}// end menuBar
-	
+
 	private JPanel searchPanel() {
 		JPanel searchPanel = new JPanel(new MigLayout());
 		searchPanel.setBorder(BorderFactory.createTitledBorder("Search"));
@@ -217,11 +184,11 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		String textFieldMeasurements = "width 200:200:200, growx, pushx";
 		searchByIdField = new JTextField(20);
 		searchBySurnameField = new JTextField(20);
-		
+
 		ActionListener idSearchListener = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					searchEmployeeById();
+				searchEmployeeById();
 			}
 		};
 
@@ -231,19 +198,19 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 				searchEmployeeBySurname();
 			}
 		};
-	
+
 		searchByIdField.setDocument(new JTextFieldLimit(20));
 		searchByIdField.addActionListener(idSearchListener);
 		searchId = new JButton(imgIcon);
 		searchId.addActionListener(idSearchListener);
 		searchId.setToolTipText("Search Employee By ID");
-		
+
 		searchBySurnameField.addActionListener(surnameSearchListener);
 		searchBySurnameField.setDocument(new JTextFieldLimit(20));
 		searchSurname = new JButton(imgIcon);
 		searchSurname.addActionListener(surnameSearchListener);
 		searchSurname.setToolTipText("Search Employee By Surname");
-				
+
 		//Search By Id
 		searchPanel.add(new JLabel("Search by ID:"), "growx, pushx");
 		searchPanel.add(searchByIdField, textFieldMeasurements);
@@ -253,11 +220,10 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		searchPanel.add(new JLabel("Search by Surname:"), "growx, pushx");
 		searchPanel.add(searchBySurnameField, textFieldMeasurements);
 		searchPanel.add(searchSurname, buttonMeasurements);
-			
+
 		return searchPanel;
 	}// end searchPanel
-	
-	// initialize navigation panel
+
 	private JPanel navigPanel() {
 		JPanel navigPanel = new JPanel();
 
@@ -304,183 +270,15 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		return buttonPanel;
 	}
 
-	// initialize main/details panel
-	private JPanel detailsPanel() {
-		
-		JPanel empDetails = new JPanel(new MigLayout());
-		JPanel buttonPanel = new JPanel();
-		JTextField field;
-
-		empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
-
-		empDetails.add(new JLabel("ID:"), "growx, pushx");
-		empDetails.add(idField = new JTextField(20), "growx, pushx, wrap");
-		idField.setEditable(false);
-
-		empDetails.add(new JLabel("PPS Number:"), "growx, pushx");
-		empDetails.add(ppsField = new JTextField(20), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Surname:"), "growx, pushx");
-		empDetails.add(surnameField = new JTextField(20), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("First Name:"), "growx, pushx");
-		empDetails.add(firstNameField = new JTextField(20), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Gender:"), "growx, pushx");
-		empDetails.add(genderCombo = new JComboBox<String>(gender), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Department:"), "growx, pushx");
-		empDetails.add(departmentCombo = new JComboBox<String>(department), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Salary:"), "growx, pushx");
-		empDetails.add(salaryField = new JTextField(20), "growx, pushx, wrap");
-
-		empDetails.add(new JLabel("Full Time:"), "growx, pushx");
-		empDetails.add(fullTimeCombo = new JComboBox<String>(fullTime), "growx, pushx, wrap");
-
-		saveChange = new JButton("Save");
-		
-		ActionListener saveChangeListener = new ActionListener(){
-			@Override 
-				public void actionPerformed(ActionEvent e) {
-					if (checkInput() && !checkForChanges())
-						;
-			}		
-		};
-			
-		saveChange.addActionListener(saveChangeListener);
-		
-		
-		
-		buttonPanel.add(saveChange);
-		saveChange.addActionListener(saveChangeListener);
-		saveChange.setVisible(false);
-		saveChange.setToolTipText("Save changes");
-		cancelChange = new JButton("Cancel");
-		
-		ActionListener cancelChangeListener = new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				cancelChange();
-			}
-		};
-		
-		cancelChange.addActionListener(cancelChangeListener);	
-		buttonPanel.add(cancelChange);
-		cancelChange.addActionListener(cancelChangeListener);
-		cancelChange.setVisible(false);
-		cancelChange.setToolTipText("Cancel edit");
-		empDetails.add(buttonPanel, "span 2,growx, pushx,wrap");
-		
-		// loop through panel components and add listeners and format
-		for (int i = 0; i < empDetails.getComponentCount(); i++) {
-			
-			if (empDetails.getComponent(i) instanceof JTextField) {
-				field = (JTextField) empDetails.getComponent(i);
-				setUpField(field);
-			} 		
-			else if (empDetails.getComponent(i) instanceof JComboBox) {
-				JComboBox<String> combo = (JComboBox<String>) empDetails.getComponent(i);
-				setUpJComboBox(combo);
-			} 
-		}
-		return empDetails;
-	}
-	
-	public void setUpField(JTextField field){
-		field.setEditable(false);
-
-		if (field == ppsField)
-			field.setDocument(new JTextFieldLimit(9));
-		else
-			field.setDocument(new JTextFieldLimit(20));
-		field.getDocument().addDocumentListener(this);
-	}
-	
-	public void setUpJComboBox(JComboBox<String> combo){
-		combo.setBackground(Color.WHITE);
-		combo.setEnabled(false);
-		((JComboBox<String>) combo).addItemListener(this);
-		((JComboBox<String>) combo).setRenderer(new DefaultListCellRenderer() {
-
-			public void paint(Graphics g) {
-				setForeground(new Color(65, 65, 65));
-				super.paint(g);
-			}// end paint
-		});
-	}
-	
-
-	// display current Employee details
-	public void displayRecords(Employee thisEmployee) {
-		int countGender = 0;
-		int countDep = 0;
-		boolean found = false;
-
-		searchByIdField.setText("");
-		searchBySurnameField.setText("");
-		// if Employee is null or ID is 0 do nothing else display Employee
-		// details
-		if (thisEmployee == null) {
-		} 
-		
-		else if (thisEmployee.getEmployeeId() == 0) {
-		} 
-		
-		else {
-			// find corresponding gender combo box value to current employee
-			while (!found && countGender < gender.length - 1) {
-				if (Character.toString(thisEmployee.getGender()).equalsIgnoreCase(gender[countGender]))
-					found = true;
-				else
-					countGender++;
-			} // end while
-			found = false;
-			// find corresponding department combo box value to current employee
-			while (!found && countDep < department.length - 1) {
-				if (thisEmployee.getDepartment().trim().equalsIgnoreCase(department[countDep]))
-					found = true;
-				else
-					countDep++;
-			} // end while
-			idField.setText(Integer.toString(thisEmployee.getEmployeeId()));
-			ppsField.setText(thisEmployee.getPps().trim());
-			surnameField.setText(thisEmployee.getSurname().trim());
-			firstNameField.setText(thisEmployee.getFirstName());
-			genderCombo.setSelectedIndex(countGender);
-			departmentCombo.setSelectedIndex(countDep);
-			salaryField.setText(format.format(thisEmployee.getSalary()));
-			// set corresponding full time combo box value to current employee
-			if (thisEmployee.getFullTime() == true)
-				fullTimeCombo.setSelectedIndex(1);
-			else
-				fullTimeCombo.setSelectedIndex(2);
-		}
-		change = false;
-	}// end display records
-	
-	
 
 	private void displayEmployeeSummaryDialog() {
-		if (isSomeoneToDisplay())
+		if (empDetailsPanel.isSomeoneToDisplay())
 			new EmployeeSummaryDialog(getAllEmloyees());
 	}
 
-	private void displaySearchByIdDialog() {
-		if (isSomeoneToDisplay())
-			new SearchDialog(EmployeeDetails.this, 1);
-			//new SearchByIdDialog(EmployeeDetails.this);
-	}
-
-	private void displaySearchBySurnameDialog() {
-		if (isSomeoneToDisplay())
-			new SearchDialog(EmployeeDetails.this, 2);
-
-			//new SearchBySurnameDialog(EmployeeDetails.this);
-	}
-	
 	private void firstRecord() {
 
-		if (isSomeoneToDisplay()) {
+		if (empDetailsPanel.isSomeoneToDisplay()) {
 
 			application.openReadFile(file.getAbsolutePath());
 
@@ -491,13 +289,12 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 
 			if (currentEmployee.getEmployeeId() == 0)
 				nextRecord();
-		} 
+		}
 	}
 
-	// find byte start in file for previous active record
 	private void previousRecord() {
 		// if any active record in file look for first record
-		if (isSomeoneToDisplay()) {
+		if (empDetailsPanel.isSomeoneToDisplay()) {
 			// open file for reading
 			application.openReadFile(file.getAbsolutePath());
 			// get byte start in file for previous record
@@ -513,12 +310,11 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 			} // end while
 			application.closeReadFile();// close file for reading
 		}
-	}// end previousRecord
+	}
 
-	// find byte start in file for next active record
 	private void nextRecord() {
 
-		if (isSomeoneToDisplay()) {
+		if (empDetailsPanel.isSomeoneToDisplay()) {
 
 			application.openReadFile(file.getAbsolutePath());
 
@@ -531,58 +327,58 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 				currentByteStart = application.getNext(currentByteStart);
 
 				currentEmployee = application.readRecords(currentByteStart);
-			} 
+			}
 			application.closeReadFile();// close file for reading
-		} 
+		}
 	}
-	// find byte start in file for last active record
+
 	private void lastRecord() {
 		// if any active record in file look for first record
-		if (isSomeoneToDisplay()) {
-			// open file for reading
+		if (empDetailsPanel.isSomeoneToDisplay()) {
+
 			application.openReadFile(file.getAbsolutePath());
-			// get byte start in file for last record
+
 			currentByteStart = application.getLast();
-			// assign current Employee to first record in file
+
 			currentEmployee = application.readRecords(currentByteStart);
 			application.closeReadFile();// close file for reading
-			// if last record is inactive look for previous record
+
 			if (currentEmployee.getEmployeeId() == 0)
 				previousRecord();// look for previous record
 		} // end if
-	}// end lastRecord
+	}
 
 	// search Employee by ID
 	public void searchEmployeeById() {
 		boolean found = false;
 		try {
-			if (isSomeoneToDisplay()) {
+			if (empDetailsPanel.isSomeoneToDisplay()) {
 				firstRecord();
-				
+
 				int firstId = currentEmployee.getEmployeeId();
-				
-				if (searchByIdField.getText().trim().equals(idField.getText().trim()))
+
+				if (searchByIdField.getText().trim().equals(empDetailsPanel.getIdField().getText().trim()))
 					found = true;
 				else if (searchByIdField.getText().trim().equals(Integer.toString(currentEmployee.getEmployeeId()))) {
 					found = true;
-					displayRecords(currentEmployee);
-				}		
+					empDetailsPanel.displayRecords(currentEmployee);
+				}
 				else {
 					nextRecord();
 					while (firstId != currentEmployee.getEmployeeId()) {
-			
+
 						if (Integer.parseInt(searchByIdField.getText().trim()) == currentEmployee.getEmployeeId()) {
 							found = true;
-							displayRecords(currentEmployee);
+							empDetailsPanel.displayRecords(currentEmployee);
 							break;
 						} else
 							nextRecord();
 					}
-				} 
+				}
 				if (!found)
 					JOptionPane.showMessageDialog(null, "Employee not found!");
-			} 
-		} 
+			}
+		}
 		catch (NumberFormatException e) {
 			searchByIdField.setBackground(new Color(255, 150, 150));
 			JOptionPane.showMessageDialog(null, "Wrong ID format!");
@@ -590,23 +386,22 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		searchByIdField.setBackground(Color.WHITE);
 		searchByIdField.setText("");
 	}
-	
-	
-	
+
+
 	// search Employee by surname
 	public void searchEmployeeBySurname() {
 		boolean found = false;
 
-		if (isSomeoneToDisplay()) {
-			firstRecord(); 
+		if (empDetailsPanel.isSomeoneToDisplay()) {
+			firstRecord();
 			String firstSurname = currentEmployee.getSurname().trim();
-			
-			if (searchBySurnameField.getText().trim().equalsIgnoreCase(surnameField.getText().trim()))
+
+			if (searchBySurnameField.getText().trim().equalsIgnoreCase(empDetailsPanel.getSurnameField().getText().trim()))
 				found = true;
 			else if (searchBySurnameField.getText().trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
 				found = true;
-				displayRecords(currentEmployee);
-			} 
+				empDetailsPanel.displayRecords(currentEmployee);
+			}
 			else {
 				nextRecord();
 
@@ -614,17 +409,17 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 
 					if (searchBySurnameField.getText().trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
 						found = true;
-						displayRecords(currentEmployee);
+						empDetailsPanel.displayRecords(currentEmployee);
 						break;
-					} 
+					}
 					else
 						nextRecord();
-				} 
-			} 
+				}
+			}
 
 			if (!found)
 				JOptionPane.showMessageDialog(null, "Employee not found!");
-		} 
+		}
 		searchBySurnameField.setText("");
 	}
 
@@ -633,7 +428,7 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		int nextFreeId = 0;
 
 
-		if (file.length() == 0 || !isSomeoneToDisplay())
+		if (file.length() == 0 || !empDetailsPanel.isSomeoneToDisplay())
 			nextFreeId++;
 		else {
 			lastRecord();
@@ -643,22 +438,6 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		return nextFreeId;
 	}// end getNextFreeId
 
-	// get values from text fields and create Employee object
-	private Employee getChangedDetails() {
-		boolean fullTime = false;
-		Employee theEmployee;
-		if (((String) fullTimeCombo.getSelectedItem()).equalsIgnoreCase("Yes"))
-			fullTime = true;
-
-		theEmployee = new Employee(Integer.parseInt(idField.getText()), ppsField.getText().toUpperCase(),
-				surnameField.getText().toUpperCase(), firstNameField.getText().toUpperCase(),
-				genderCombo.getSelectedItem().toString().charAt(0), departmentCombo.getSelectedItem().toString(),
-				Double.parseDouble(salaryField.getText()), fullTime);
-
-		return theEmployee;
-	}// end getChangedDetails
-
-	// add Employee object to fail
 	public void addRecord(Employee newEmployee) {
 		// open file for writing
 		application.openWriteFile(file.getAbsolutePath());
@@ -669,8 +448,8 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 
 	// delete (make inactive - empty) record from file
 	private void deleteRecord() {
-		if (isSomeoneToDisplay()) {// if any active record in file display
-									// message and delete record
+		if (empDetailsPanel.isSomeoneToDisplay()) {// if any active record in file display
+			// message and delete record
 			int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to delete record?", "Delete",
 					JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 			// if answer yes delete (make inactive - empty) record
@@ -681,9 +460,9 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 				application.deleteRecords(currentByteStart);
 				application.closeWriteFile();// close file for writing
 				// if any active record in file display next record
-				if (isSomeoneToDisplay()) {
+				if (empDetailsPanel.isSomeoneToDisplay()) {
 					nextRecord();// look for next record
-					displayRecords(currentEmployee);
+					empDetailsPanel.displayRecords(currentEmployee);
 				} // end if
 			} // end if
 		} // end if
@@ -719,71 +498,9 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		return allEmployee;
 	}
 
-	// activate field for editing
-	private void editDetails() {
-		// activate field for editing if there is records to display
-		if (isSomeoneToDisplay()) {
-			// remove euro sign from salary text field
-			salaryField.setText(fieldFormat.format(currentEmployee.getSalary()));
-			change = false;
-			setEnabled(true);// enable text fields for editing
-		} // end if
-	}// end editDetails
-
-	// ignore changes and set text field unenabled
-	private void cancelChange() {
-		setEnabled(false);
-		displayRecords(currentEmployee);
-	}// end cancelChange
-
-	// check if any of records in file is active - ID is not 0
-	private boolean isSomeoneToDisplay() {
-		boolean someoneToDisplay = false;
-		// open file for reading
-		application.openReadFile(file.getAbsolutePath());
-		// check if any of records in file is active - ID is not 0
-		someoneToDisplay = application.isSomeoneToDisplay();
-		application.closeReadFile();// close file for reading
-		// if no records found clear all text fields and display message
-		if (!someoneToDisplay) {
-			currentEmployee = null;
-			idField.setText("");
-			ppsField.setText("");
-			surnameField.setText("");
-			firstNameField.setText("");
-			salaryField.setText("");
-			genderCombo.setSelectedIndex(0);
-			departmentCombo.setSelectedIndex(0);
-			fullTimeCombo.setSelectedIndex(0);
-			JOptionPane.showMessageDialog(null, "No Employees registered!");
-		}
-		return someoneToDisplay;
-	}
-
 	// check for correct PPS format and look if PPS already in use
-	public boolean correctPps(String pps, long currentByte) {
-		boolean ppsExist = false;
-		// check for correct PPS format based on assignment description
-		if (pps.length() == 8 || pps.length() == 9) {
-			if (Character.isDigit(pps.charAt(0)) && Character.isDigit(pps.charAt(1))
-					&& Character.isDigit(pps.charAt(2))	&& Character.isDigit(pps.charAt(3)) 
-					&& Character.isDigit(pps.charAt(4))	&& Character.isDigit(pps.charAt(5)) 
-					&& Character.isDigit(pps.charAt(6))	&& Character.isLetter(pps.charAt(7))
-					&& (pps.length() == 8 || Character.isLetter(pps.charAt(8)))) {
-				// open file for reading
-				application.openReadFile(file.getAbsolutePath());
-				// look in file is PPS already in use
-				ppsExist = application.isPpsExist(pps, currentByte);
-				application.closeReadFile();// close file for reading
-			} // end if
-			else
-				ppsExist = true;
-		} // end if
-		else
-			ppsExist = true;
 
-		return ppsExist;
-	}// end correctPPS
+
 
 	// check if file name has extension .dat
 	private boolean checkFileName(File fileName) {
@@ -796,116 +513,6 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 			checkFile = true;
 		return checkFile;
 	}// end checkFileName
-
-	// check if any changes text field where made
-	private boolean checkForChanges() {
-		boolean anyChanges = false;
-		// if changes where made, allow user to save there changes
-		if (change) {
-			saveChanges();// save changes
-			anyChanges = true;
-		} // end if
-			// if no changes made, set text fields as unenabled and display
-			// current Employee
-		else {
-			setEnabled(false);
-			displayRecords(currentEmployee);
-		} // end else
-
-		return anyChanges;
-	}// end checkForChanges
-
-	// check for input in text fields
-	private boolean checkInput() {
-		boolean valid = true;
-		// if any of inputs are in wrong format, colour text field and display
-		// message
-		if (ppsField.isEditable() && ppsField.getText().trim().isEmpty()) {
-			ppsField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		} // end if
-		if (ppsField.isEditable() && correctPps(ppsField.getText().trim(), currentByteStart)) {
-			ppsField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		} // end if
-		if (surnameField.isEditable() && surnameField.getText().trim().isEmpty()) {
-			surnameField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		} // end if
-		if (firstNameField.isEditable() && firstNameField.getText().trim().isEmpty()) {
-			firstNameField.setBackground(new Color(255, 150, 150));
-			valid = false;
-		} // end if
-		if (genderCombo.getSelectedIndex() == 0 && genderCombo.isEnabled()) {
-			genderCombo.setBackground(new Color(255, 150, 150));
-			valid = false;
-		} // end if
-		if (departmentCombo.getSelectedIndex() == 0 && departmentCombo.isEnabled()) {
-			departmentCombo.setBackground(new Color(255, 150, 150));
-			valid = false;
-		} // end if
-		try {// try to get values from text field
-			Double.parseDouble(salaryField.getText());
-			// check if salary is greater than 0
-			if (Double.parseDouble(salaryField.getText()) < 0) {
-				salaryField.setBackground(new Color(255, 150, 150));
-				valid = false;
-			} // end if
-		} // end try
-		catch (NumberFormatException num) {
-			if (salaryField.isEditable()) {
-				salaryField.setBackground(new Color(255, 150, 150));
-				valid = false;
-			} // end if
-		} // end catch
-		if (fullTimeCombo.getSelectedIndex() == 0 && fullTimeCombo.isEnabled()) {
-			fullTimeCombo.setBackground(new Color(255, 150, 150));
-			valid = false;
-		} // end if
-			// display message if any input or format is wrong
-		
-		if (!valid)
-			JOptionPane.showMessageDialog(null, "Wrong values or format! Please check!");
-		// set text field to white colour if text fields are editable
-		if (ppsField.isEditable())
-			setToWhite();
-
-		return valid;
-	}
-
-	// set text field background colour to white
-	private void setToWhite() {
-		ppsField.setBackground(UIManager.getColor("TextField.background"));
-		surnameField.setBackground(UIManager.getColor("TextField.background"));
-		firstNameField.setBackground(UIManager.getColor("TextField.background"));
-		salaryField.setBackground(UIManager.getColor("TextField.background"));
-		genderCombo.setBackground(UIManager.getColor("TextField.background"));
-		departmentCombo.setBackground(UIManager.getColor("TextField.background"));
-		fullTimeCombo.setBackground(UIManager.getColor("TextField.background"));
-	}// end setToWhite
-
-	// enable text fields for editing
-	public void setEnabled(boolean booleanValue) {
-		boolean search;
-		
-		if (booleanValue)
-			search = false;
-		else
-			search = true;
-		ppsField.setEditable(booleanValue);
-		surnameField.setEditable(booleanValue);
-		firstNameField.setEditable(booleanValue);
-		genderCombo.setEnabled(booleanValue);
-		departmentCombo.setEnabled(booleanValue);
-		salaryField.setEditable(booleanValue);
-		fullTimeCombo.setEnabled(booleanValue);
-		saveChange.setVisible(booleanValue);
-		cancelChange.setVisible(booleanValue);
-		searchByIdField.setEnabled(search);
-		searchBySurnameField.setEnabled(search);
-		searchId.setEnabled(search);
-		searchSurname.setEnabled(search);
-	}// end setEnabled
 
 	// open file
 	private void openFile() {
@@ -936,13 +543,13 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 			// open file for reading
 			application.openReadFile(file.getAbsolutePath());
 			firstRecord();// look for first record
-			displayRecords(currentEmployee);
+			empDetailsPanel.displayRecords(currentEmployee);
 			application.closeReadFile();// close file for reading
 		} // end if
 	}// end openFile
 
 	// save file
-	private void saveFile() {
+	public void saveFile() {
 		// if file name is generated file name, save file as 'save as' else save
 		// changes to file
 		if (file.getName().equals(generatedFileName))
@@ -956,11 +563,11 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 				// save changes if user choose this option
 				if (returnVal == JOptionPane.YES_OPTION) {
 					// save changes if ID field is not empty
-					if (!idField.getText().equals("")) {
+					if (!empDetailsPanel.getIdField().getText().equals("")) {
 						// open file for writing
 						application.openWriteFile(file.getAbsolutePath());
 						// get changes for current Employee
-						currentEmployee = getChangedDetails();
+						currentEmployee = empDetailsPanel.getChangedDetails();
 						// write changes to file for corresponding Employee
 						// record
 						application.changeRecords(currentEmployee, currentByteStart);
@@ -969,13 +576,13 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 				} // end if
 			} // end if
 
-			displayRecords(currentEmployee);
-			setEnabled(false);
+			empDetailsPanel.displayRecords(currentEmployee);
+			empDetailsPanel.setEnabled(false);
 		} // end else
 	}// end saveFile
 
 	// save changes to current Employee
-	private void saveChanges() {
+	public void saveChanges() {
 		int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes to current Employee?", "Save",
 				JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 		// if user choose to save changes, save changes
@@ -983,14 +590,14 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 			// open file for writing
 			application.openWriteFile(file.getAbsolutePath());
 			// get changes for current Employee
-			currentEmployee = getChangedDetails();
+			currentEmployee = empDetailsPanel.getChangedDetails();
 			// write changes to file for corresponding Employee record
 			application.changeRecords(currentEmployee, currentByteStart);
 			application.closeWriteFile();// close file for writing
 			changesMade = false;// state that all changes has bee saved
 		} // end if
-		displayRecords(currentEmployee);
-		setEnabled(false);
+		empDetailsPanel.displayRecords(currentEmployee);
+		empDetailsPanel.setEnabled(false);
 	}// end saveChanges
 
 	// save file as 'save as'
@@ -1047,7 +654,7 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 						file.delete();// delete file
 					System.exit(0);// exit application
 				} // end if
-					// else exit application
+				// else exit application
 				else if (returnVal == JOptionPane.NO_OPTION) {
 					// delete generated file if user chooses not to save file
 					if (file.getName().equals(generatedFileName))
@@ -1061,7 +668,7 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 					file.delete();// delete file
 				System.exit(0);// exit application
 			} // end else
-				// else exit application
+			// else exit application
 		} else {
 			// delete generated file if user chooses not to save file
 			if (file.getName().equals(generatedFileName))
@@ -1101,79 +708,81 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges()) {
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges()) {
 					firstRecord();
-					displayRecords(currentEmployee);
+					empDetailsPanel.displayRecords(currentEmployee);
 				}
 			}
 		};
-		
+
 		System.out.println("ActionListener being done");
 		prevItemListener = new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges()) {
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges()) {
 					previousRecord();
-					displayRecords(currentEmployee);
-				}	
+					empDetailsPanel.displayRecords(currentEmployee);
+				}
 			}
 		};
 
 		nextItemListener = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges()) {
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges()) {
 					nextRecord();
-					displayRecords(currentEmployee);
+					empDetailsPanel.displayRecords(currentEmployee);
 				}
 			}
 		};
-	
+
 		lastItemListener = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges()) {
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges()) {
 					lastRecord();
-					displayRecords(currentEmployee);
+					empDetailsPanel.displayRecords(currentEmployee);
 				}
 			}
 		};
-	
+
 		allItemsListener = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges())
-					if (isSomeoneToDisplay())
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges())
+					if (empDetailsPanel.isSomeoneToDisplay())
 						displayEmployeeSummaryDialog();
-			}	
+			}
 		};
-	
+
 		createItemListener = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges())
-					new AddRecordDialog(EmployeeDetails.this);
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges())
+					new NewAddRecordDialog(EmployeeDetails.this);
+
+				//new AddRecordDialog(EmployeeDetails.this);
 			}
 		};
-	
+
 		modifyItemListener = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges())
-					editDetails();
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges())
+					empDetailsPanel.editDetails();
 			}
 		};
-		
+
 		deleteItemListener = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (checkInput() && !checkForChanges())
+				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges())
 					deleteRecord();
 			}
 		};
-	
-	
+
+
 		setTitle("Employee Details");
 		createRandomFile();// create random file name
 		JPanel dialog = new JPanel(new MigLayout());
@@ -1182,14 +791,18 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		dialog.add(searchPanel(), "width 400:400:400, growx, pushx");
 		dialog.add(navigPanel(), "width 150:150:150, wrap");
 		dialog.add(buttonPanel(), "growx, pushx, span 2,wrap");
-		dialog.add(detailsPanel(), "gap top 30, gap left 150, center");
 
+		empDetailsPanel = new EmpDetailsPanel(this);
+
+		dialog.add(empDetailsPanel.detailsPanel(), "gap top 30, gap left 150, center");
+
+		//dialog.add(detailsPanel(), "gap top 30, gap left 150, center");
 		JScrollPane scrollPane = new JScrollPane(dialog);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		addWindowListener(this);
-		
-		
-	
+
+
+
 	}// end createContentPane
 
 	// create and show main dialog
@@ -1210,20 +823,32 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 		});
 	}// end main
 
+	@Override
+	public void insertUpdate(DocumentEvent e) {
+
+	}
+
+	@Override
+	public void removeUpdate(DocumentEvent e) {
+
+	}
+
 	// DocumentListener methods
 	public void changedUpdate(DocumentEvent d) {
 		change = true;
-		new JTextFieldLimit(20);
-	}
+		new PlainDocument() {
+			private int limit = 20;
 
-	public void insertUpdate(DocumentEvent d) {
-		change = true;
-		new JTextFieldLimit(20);
-	}
+			public void insertString(int offset, String str, AttributeSet attr) throws BadLocationException {
+				if (str == null)
+					return;
 
-	public void removeUpdate(DocumentEvent d) {
-		change = true;
-		new JTextFieldLimit(20);
+				if ((getLength() + str.length()) <= limit)
+					super.insertString(offset, str, attr);
+				else
+					JOptionPane.showMessageDialog(null, "For input " + limit + " characters maximum!");
+			}// end insertString
+		};
 	}
 
 	// ItemListener method
@@ -1254,5 +879,32 @@ public class EmployeeDetails extends JFrame implements ItemListener, DocumentLis
 
 	public void windowOpened(WindowEvent e) {
 	}
-	
+
+	public JTextField getSearchByIdField() {
+		return searchByIdField;
+	}
+
+	public JButton getSearchId(){
+		return searchId;
+	}
+
+	public JButton getSearchSurname(){
+		return searchSurname;
+	}
+
+	public JTextField getSearchBySurnameField() {
+		return searchBySurnameField;
+	}
+
+	public EmpDetailsPanel getDetailsPanel(){
+		return empDetailsPanel;
+	}
+
+	public File getFile(){
+		return file;
+	}
+
+	public Employee getCurrentEmployee(){
+		return currentEmployee;
+	}
 }// end class EmployeeDetails
