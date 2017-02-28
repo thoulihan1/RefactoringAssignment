@@ -387,7 +387,6 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 		searchByIdField.setText("");
 	}
 
-
 	// search Employee by surname
 	public void searchEmployeeBySurname() {
 		boolean found = false;
@@ -564,14 +563,8 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 				if (returnVal == JOptionPane.YES_OPTION) {
 					// save changes if ID field is not empty
 					if (!empDetailsPanel.getIdField().getText().equals("")) {
-						// open file for writing
-						application.openWriteFile(file.getAbsolutePath());
-						// get changes for current Employee
-						currentEmployee = empDetailsPanel.getChangedDetails();
-						// write changes to file for corresponding Employee
-						// record
-						application.changeRecords(currentEmployee, currentByteStart);
-						application.closeWriteFile();// close file for writing
+						changeRecords();
+
 					} // end if
 				} // end if
 			} // end if
@@ -587,18 +580,23 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 				JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 		// if user choose to save changes, save changes
 		if (returnVal == JOptionPane.YES_OPTION) {
-			// open file for writing
-			application.openWriteFile(file.getAbsolutePath());
-			// get changes for current Employee
-			currentEmployee = empDetailsPanel.getChangedDetails();
-			// write changes to file for corresponding Employee record
-			application.changeRecords(currentEmployee, currentByteStart);
-			application.closeWriteFile();// close file for writing
-			changesMade = false;// state that all changes has bee saved
+
+			changeRecords();
 		} // end if
 		empDetailsPanel.displayRecords(currentEmployee);
 		empDetailsPanel.setEnabled(false);
 	}// end saveChanges
+
+	public void changeRecords(){
+		// open file for writing
+		application.openWriteFile(file.getAbsolutePath());
+		// get changes for current Employee
+		currentEmployee = empDetailsPanel.getChangedDetails();
+		// write changes to file for corresponding Employee
+		// record
+		application.changeRecords(currentEmployee, currentByteStart);
+		application.closeWriteFile();// close file for writing
+	}
 
 	// save file as 'save as'
 	private void saveFileAs() {
@@ -630,12 +628,12 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 				Files.copy(file.toPath(), newFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 				// if old file name was generated file name, delete it
 				if (file.getName().equals(generatedFileName))
-					file.delete();// delete file
-				file = newFile;// assign new file to file
-			} // end try
+					file.delete();
+				file = newFile;
+			}
 			catch (IOException e) {
-			} // end catch
-		} // end if
+			}
+		}
 		changesMade = false;
 	}// end saveFileAs
 
@@ -704,6 +702,39 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 	private void createContentPane() {
 		System.out.println("createContentPane being called");
 
+		addActionListeners();
+		setTitle("Employee Details");
+		createRandomFile();// create random file name
+		JPanel dialog = new JPanel(new MigLayout());
+
+		setJMenuBar(menuBar());
+		dialog.add(searchPanel(), "width 400:400:400, growx, pushx");
+		dialog.add(navigPanel(), "width 150:150:150, wrap");
+		dialog.add(buttonPanel(), "growx, pushx, span 2,wrap");
+
+		empDetailsPanel = new EmpDetailsPanel(this);
+
+		dialog.add(empDetailsPanel.detailsPanel(), "gap top 30, gap left 150, center");
+
+		//dialog.add(detailsPanel(), "gap top 30, gap left 150, center");
+		JScrollPane scrollPane = new JScrollPane(dialog);
+		getContentPane().add(scrollPane, BorderLayout.CENTER);
+		addWindowListener(this);
+
+
+
+	}// end createContentPane
+
+	// create and show main dialog
+	private static void createAndShowGUI() {
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.createContentPane();// add content pane to frame
+		frame.setSize(760, 600);
+		frame.setLocation(250, 200);
+		frame.setVisible(true);
+	}// end createAndShowGUI
+
+	public void addActionListeners(){
 		firstItemListener = new ActionListener(){
 
 			@Override
@@ -782,46 +813,15 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 			}
 		};
 
+	}
 
-		setTitle("Employee Details");
-		createRandomFile();// create random file name
-		JPanel dialog = new JPanel(new MigLayout());
-
-		setJMenuBar(menuBar());
-		dialog.add(searchPanel(), "width 400:400:400, growx, pushx");
-		dialog.add(navigPanel(), "width 150:150:150, wrap");
-		dialog.add(buttonPanel(), "growx, pushx, span 2,wrap");
-
-		empDetailsPanel = new EmpDetailsPanel(this);
-
-		dialog.add(empDetailsPanel.detailsPanel(), "gap top 30, gap left 150, center");
-
-		//dialog.add(detailsPanel(), "gap top 30, gap left 150, center");
-		JScrollPane scrollPane = new JScrollPane(dialog);
-		getContentPane().add(scrollPane, BorderLayout.CENTER);
-		addWindowListener(this);
-
-
-
-	}// end createContentPane
-
-	// create and show main dialog
-	private static void createAndShowGUI() {
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		frame.createContentPane();// add content pane to frame
-		frame.setSize(760, 600);
-		frame.setLocation(250, 200);
-		frame.setVisible(true);
-	}// end createAndShowGUI
-
-	// main method
 	public static void main(String args[]) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				createAndShowGUI();
 			}
 		});
-	}// end main
+	}
 
 	@Override
 	public void insertUpdate(DocumentEvent e) {
