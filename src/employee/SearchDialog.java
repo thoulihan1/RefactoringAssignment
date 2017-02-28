@@ -26,27 +26,26 @@ public class SearchDialog extends JDialog{
 	JPanel textPanel;
 	JPanel buttonPanel;
 	JLabel searchLabel;
-	int ID = 1;
-	int SURNAME = 2;
-	
 
-	public SearchDialog(EmployeeDetails parent, int mode) {
+	public SearchDialog(EmployeeDetails parent) {
 		//setTitle("Search by Surname");
 		setModal(true);
 		this.parent = parent;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		JScrollPane scrollPane = new JScrollPane(searchPane(mode));
+		JScrollPane scrollPane = new JScrollPane(searchPane());
 		setContentPane(scrollPane);
+
 
 		getRootPane().setDefaultButton(search);
 		
 		setSize(500, 190);
 		setLocation(350, 250);
 		setVisible(true);
+
 	}
-	
-	public Container searchPane(int mode) {
+
+	public Container searchPane() {
 		searchPanel = new JPanel(new GridLayout(3,1));
 		textPanel = new JPanel();
 		buttonPanel = new JPanel();
@@ -54,32 +53,34 @@ public class SearchDialog extends JDialog{
 
 		buttonPanel.add(search = new JButton("Search"));
 		search.requestFocus();
-		
-		setButtonListeners(mode);
 
-		searchLabel.setFont(this.parent.font1);
+		addLabelAndListener();
+
 		textPanel.add(searchField = new JTextField(20));
 		searchField.setFont(this.parent.font1);
 		searchField.setDocument(new JTextFieldLimit(20));
-		
-		
-		
-		buttonPanel.add(cancel = new JButton("Cancel"));
-		
-		cancel.addActionListener(new ActionListener(){
 
+		buttonPanel.add(cancel = new JButton("Cancel"));
+
+		cancel.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
-			
 		});
 		searchPanel.add(textPanel);
 		searchPanel.add(buttonPanel);
+
+
 		
 		return searchPanel;
 	}
-	
+
+	public void addLabelAndListener(){
+
+	}
+
+	/*
 	public void setButtonListeners(int mode){
 		if(mode==1){
 			searchPanel.add(new JLabel("Search by ID"));
@@ -121,6 +122,7 @@ public class SearchDialog extends JDialog{
 			dispose();
 		}
 	}
+	*/
 }
 
 

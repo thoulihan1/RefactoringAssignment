@@ -2,11 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5c63599-c87a-4a52-b569-2266128e1c5d" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.classpath" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.project" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/I7S7HCM9KUYPAN8_N8DS.dat" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/SearchDialog$2.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/SearchDialog$3.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$10.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$10.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$11.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$11.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$12.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$12.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$13.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$13.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$14.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$14.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$15.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$15.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$16.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$16.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$17.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$17.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$18.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$18.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$4.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$5.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$6.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$7.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$8.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$8.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$9.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails$9.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeDetails.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeSummaryDialog$DecimalFormatRenderer.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeSummaryDialog$DecimalFormatRenderer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeSummaryDialog.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/EmployeeSummaryDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/SearchByIdDialog.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/SearchByIdDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/SearchDialog$1.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/SearchDialog$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/SearchDialog.class" afterPath="$PROJECT_DIR$/out/production/RefactoringAssignment/employee/SearchDialog.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/employee/AddRecordDialog.java" afterPath="$PROJECT_DIR$/src/employee/AddRecordDialog.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/employee/EmpDetailsPanel.java" afterPath="$PROJECT_DIR$/src/employee/EmpDetailsPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/employee/EmployeeDetails.java" afterPath="$PROJECT_DIR$/src/employee/EmployeeDetails.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/employee/RandomFile.java" afterPath="$PROJECT_DIR$/src/employee/RandomFile.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/employee/EmployeeSummaryDialog.java" afterPath="$PROJECT_DIR$/src/employee/EmployeeSummaryDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/employee/SearchByIdDialog.java" afterPath="$PROJECT_DIR$/src/employee/SearchByIdDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/employee/SearchBySurnameDialog.java" afterPath="$PROJECT_DIR$/src/employee/SearchBySurnameDialog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/employee/SearchDialog.java" afterPath="$PROJECT_DIR$/src/employee/SearchDialog.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,11 +49,24 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="EmployeeDetails.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SearchBySurnameDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/employee/SearchBySurnameDialog.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+              <folding>
+                <element signature="e#591#592#0" expanded="true" />
+                <element signature="e#611#612#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EmployeeDetails.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/employee/EmployeeDetails.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="294" column="34" lean-forward="true" selection-start-line="294" selection-start-column="34" selection-end-line="294" selection-end-column="34" />
+            <state relative-caret-position="480">
+              <caret line="418" column="0" lean-forward="true" selection-start-line="418" selection-start-column="0" selection-end-line="418" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#firstRecord#0;class#EmployeeDetails#0" expanded="false" />
@@ -34,7 +74,6 @@
                 <element signature="method#lastRecord#0;class#EmployeeDetails#0" expanded="false" />
                 <element signature="method#saveChanges#0;class#EmployeeDetails#0" expanded="false" />
                 <element signature="method#saveFileAs#0;class#EmployeeDetails#0" expanded="false" />
-                <element signature="method#exitApp#0;class#EmployeeDetails#0" expanded="false" />
                 <element signature="method#getFileName#0;class#EmployeeDetails#0" expanded="false" />
                 <element signature="method#createRandomFile#0;class#EmployeeDetails#0" expanded="false" />
                 <element signature="method#createAndShowGUI#0;class#EmployeeDetails#0" expanded="false" />
@@ -46,70 +85,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddRecordDialog.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/employee/AddRecordDialog.java">
+      <file leaf-file-name="SearchByIdDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/employee/SearchByIdDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-120">
-              <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RandomFile.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/employee/RandomFile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="75" column="9" lean-forward="true" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding>
-                <element signature="e#1388#1389#0" expanded="true" />
-                <element signature="e#1433#1434#0" expanded="true" />
-                <element signature="e#1502#1503#0" expanded="true" />
-                <element signature="e#1544#1545#0" expanded="true" />
-                <element signature="e#1869#1870#0" expanded="true" />
-                <element signature="e#1889#1890#0" expanded="true" />
-                <element signature="e#1953#1954#0" expanded="true" />
-                <element signature="e#1972#1973#0" expanded="true" />
-                <element signature="method#readRecords#0;class#RandomFile#0" expanded="false" />
-                <element signature="method#isPpsExist#0;class#RandomFile#0" expanded="false" />
-                <element signature="method#isSomeoneToDisplay#0;class#RandomFile#0" expanded="false" />
+                <element signature="e#582#583#0" expanded="true" />
+                <element signature="e#602#603#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Employee.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/employee/Employee.java">
+      <file leaf-file-name="SearchDialog.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/employee/SearchDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+            <state relative-caret-position="566">
+              <caret line="122" column="9" lean-forward="true" selection-start-line="106" selection-start-column="12" selection-end-line="122" selection-end-column="9" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="EmpDetailsPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/employee/EmpDetailsPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="98" column="83" lean-forward="false" selection-start-line="98" selection-start-column="83" selection-end-line="98" selection-end-column="83" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#cancelChange#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#setUpField#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#setUpJComboBox#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#checkInput#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#isPPsCorrectLength#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#checkForChanges#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#getChangedDetails#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#setEnabled#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#isSomeoneToDisplay#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#editDetails#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#insertUpdate#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#removeUpdate#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#changedUpdate#0;class#EmpDetailsPanel#0" expanded="false" />
-                <element signature="method#itemStateChanged#0;class#EmpDetailsPanel#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -119,6 +113,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -130,6 +125,12 @@
       <find>previousRecord</find>
       <find>RandomAccessFile(</find>
       <find>output</find>
+      <find>exitApp</find>
+      <find>new SearchDialog</find>
+      <find>SearchEmployeeById</find>
+      <find>idSearchListener</find>
+      <find>new Searc</find>
+      <find>searchEmployeeBySurname</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -144,9 +145,14 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/src/employee/AddRecordDialog.java" />
-        <option value="$PROJECT_DIR$/src/employee/EmployeeDetails.java" />
         <option value="$PROJECT_DIR$/src/employee/EmpDetailsPanel.java" />
         <option value="$PROJECT_DIR$/src/employee/RandomFile.java" />
+        <option value="$PROJECT_DIR$/src/employee/EmployeeSummaryDialog.java" />
+        <option value="$PROJECT_DIR$/src/employee/SearchDialogInterface.java" />
+        <option value="$PROJECT_DIR$/src/employee/SearchDialog.java" />
+        <option value="$PROJECT_DIR$/src/employee/SearchByIdDialog.java" />
+        <option value="$PROJECT_DIR$/src/employee/EmployeeDetails.java" />
+        <option value="$PROJECT_DIR$/src/employee/SearchBySurnameDialog.java" />
       </list>
     </option>
   </component>
@@ -194,6 +200,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="employee" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RefactoringAssignment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RefactoringAssignment" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -545,7 +569,6 @@
             <element signature="e#1972#1973#0" expanded="true" />
             <element signature="method#readRecords#0;class#RandomFile#0" expanded="false" />
             <element signature="method#isPpsExist#0;class#RandomFile#0" expanded="false" />
-            <element signature="method#isSomeoneToDisplay#0;class#RandomFile#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -601,7 +624,6 @@
             <element signature="method#lastRecord#0;class#EmployeeDetails#0" expanded="false" />
             <element signature="method#saveChanges#0;class#EmployeeDetails#0" expanded="false" />
             <element signature="method#saveFileAs#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#exitApp#0;class#EmployeeDetails#0" expanded="false" />
             <element signature="method#getFileName#0;class#EmployeeDetails#0" expanded="false" />
             <element signature="method#createRandomFile#0;class#EmployeeDetails#0" expanded="false" />
             <element signature="method#createAndShowGUI#0;class#EmployeeDetails#0" expanded="false" />
@@ -625,34 +647,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/employee/SearchDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/employee/SearchBySurnameDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/employee/SearchByIdDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -684,22 +678,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/employee/EmployeeSummaryDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="50" column="5" lean-forward="true" selection-start-line="50" selection-start-column="5" selection-end-line="50" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/employee/AddRecordDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-120">
-          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -736,32 +714,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/employee/EmployeeDetails.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="294" column="34" lean-forward="true" selection-start-line="294" selection-start-column="34" selection-end-line="294" selection-end-column="34" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#firstRecord#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#nextRecord#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#lastRecord#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#saveChanges#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#saveFileAs#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#exitApp#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#getFileName#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#createRandomFile#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#createAndShowGUI#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#main#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#changedUpdate#0;class#EmployeeDetails#0" expanded="false" />
-            <element signature="method#windowClosing#0;class#EmployeeDetails#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/employee/RandomFile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="75" column="9" lean-forward="true" selection-start-line="75" selection-start-column="9" selection-end-line="75" selection-end-column="9" />
+        <state relative-caret-position="149">
+          <caret line="270" column="22" lean-forward="false" selection-start-line="270" selection-start-column="22" selection-end-line="270" selection-end-column="22" />
           <folding>
             <element signature="e#1388#1389#0" expanded="true" />
             <element signature="e#1433#1434#0" expanded="true" />
@@ -773,7 +729,83 @@
             <element signature="e#1972#1973#0" expanded="true" />
             <element signature="method#readRecords#0;class#RandomFile#0" expanded="false" />
             <element signature="method#isPpsExist#0;class#RandomFile#0" expanded="false" />
-            <element signature="method#isSomeoneToDisplay#0;class#RandomFile#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/employee/AddRecordDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="51" column="0" lean-forward="false" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/employee/EmployeeSummaryDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="536">
+          <caret line="140" column="35" lean-forward="true" selection-start-line="140" selection-start-column="35" selection-end-line="140" selection-end-column="35" />
+          <folding>
+            <element signature="e#1717#1725#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/employee/SearchDialogInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/employee/SearchDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="566">
+          <caret line="122" column="9" lean-forward="true" selection-start-line="106" selection-start-column="12" selection-end-line="122" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/employee/SearchByIdDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="e#582#583#0" expanded="true" />
+            <element signature="e#602#603#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/employee/SearchBySurnameDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <element signature="e#591#592#0" expanded="true" />
+            <element signature="e#611#612#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/employee/EmployeeDetails.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="418" column="0" lean-forward="true" selection-start-line="418" selection-start-column="0" selection-end-line="418" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#firstRecord#0;class#EmployeeDetails#0" expanded="false" />
+            <element signature="method#nextRecord#0;class#EmployeeDetails#0" expanded="false" />
+            <element signature="method#lastRecord#0;class#EmployeeDetails#0" expanded="false" />
+            <element signature="method#saveChanges#0;class#EmployeeDetails#0" expanded="false" />
+            <element signature="method#saveFileAs#0;class#EmployeeDetails#0" expanded="false" />
+            <element signature="method#getFileName#0;class#EmployeeDetails#0" expanded="false" />
+            <element signature="method#createRandomFile#0;class#EmployeeDetails#0" expanded="false" />
+            <element signature="method#createAndShowGUI#0;class#EmployeeDetails#0" expanded="false" />
+            <element signature="method#main#0;class#EmployeeDetails#0" expanded="false" />
+            <element signature="method#changedUpdate#0;class#EmployeeDetails#0" expanded="false" />
+            <element signature="method#windowClosing#0;class#EmployeeDetails#0" expanded="false" />
           </folding>
         </state>
       </provider>

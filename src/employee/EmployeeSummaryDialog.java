@@ -121,7 +121,6 @@ public class EmployeeSummaryDialog extends JDialog implements ActionListener {
 		if (e.getSource() == back){
 			dispose();
 		}
-
 	}
 	// format for salary column
 	static class DecimalFormatRenderer extends DefaultTableCellRenderer {

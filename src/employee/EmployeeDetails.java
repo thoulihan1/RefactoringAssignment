@@ -139,7 +139,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 			public void actionPerformed(ActionEvent e) {
 				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges()){
 					if (empDetailsPanel.isSomeoneToDisplay())
-						new SearchDialog(EmployeeDetails.this, 1);
+						new SearchByIdDialog(EmployeeDetails.this);
 				}
 			}
 		});
@@ -151,7 +151,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 			public void actionPerformed(ActionEvent e) {
 				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges())
 					if (empDetailsPanel.isSomeoneToDisplay())
-						new SearchDialog(EmployeeDetails.this, 2);
+						new SearchBySurnameDialog(EmployeeDetails.this);
 			}
 		});
 
