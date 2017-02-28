@@ -36,7 +36,7 @@ public class AddRecordDialog extends JDialog implements ActionListener {
 		this.parent = parent;
 		this.parent.setEnabled(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+		//asdfgh
 		JScrollPane scrollPane = new JScrollPane(dialogPane());
 		setContentPane(scrollPane);
 		
