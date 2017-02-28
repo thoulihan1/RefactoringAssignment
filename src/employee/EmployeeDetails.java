@@ -760,7 +760,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges())
-					new NewAddRecordDialog(EmployeeDetails.this);
+					new AddRecordDialog(EmployeeDetails.this);
 
 				//new AddRecordDialog(EmployeeDetails.this);
 			}

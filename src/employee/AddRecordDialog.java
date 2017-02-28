@@ -30,7 +30,6 @@ public class AddRecordDialog extends JDialog{
 		setLocation(350, 250);
 		setVisible(true);
 
-
 		addRecordDialog.getSaveChange().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

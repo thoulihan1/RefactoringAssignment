@@ -8,6 +8,7 @@
 package employee;
 
 import java.io.EOFException;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
@@ -44,29 +45,46 @@ public class RandomFile {
 		} // end finally
 	} // end createFile
 
+	public RandomAccessFile open(String name, RandomAccessFile file, String permission){
+		try {
+			file = new RandomAccessFile(name, permission);
+			return file;
+
+		} catch (FileNotFoundException e) {
+			JOptionPane.showMessageDialog(null, "File does not exist!");
+		}
+		return null;
+	}
+
 	// Open file for adding or changing records
 	public void openWriteFile(String fileName) {
-		try // open file
-		{
-			output = new RandomAccessFile(fileName, "rw");
-		} // end try
-		catch (IOException ioException) {
-			JOptionPane.showMessageDialog(null, "File does not exist!");
-		} // end catch
+			output = open(fileName, output, "rw");
 	} // end method openFile
+
+	public void openReadFile(String fileName) {
+			input = open(fileName, input, "r");
+	} // end method openFile
+
+	public void close(RandomAccessFile toClose){
+		try {
+			if (toClose != null)
+				toClose.close();
+
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(null, "Error Closing File!");
+			e.printStackTrace();
+		}
+	}
 
 	// Close file for adding or changing records
 	public void closeWriteFile() {
-		try // close file and exit
-		{
-			if (output != null)
-				output.close();
-		} // end try
-		catch (IOException ioException) {
-			JOptionPane.showMessageDialog(null, "Error closing file!");
-			System.exit(1);
-		} // end catch
+		close(output);
 	} // end closeFile
+
+	// Close file
+	public void closeReadFile() {
+		close(input);
+	} // end method closeFile
 
 	// Add records to file
 	public long addRecords(Employee employeeToAdd) {
@@ -138,28 +156,9 @@ public class RandomFile {
 	}// end deleteRecords
 
 	// Open file for reading
-	public void openReadFile(String fileName) {
-		try // open file
-		{
-			input = new RandomAccessFile(fileName, "r");
-		} // end try
-		catch (IOException ioException) {
-			JOptionPane.showMessageDialog(null, "File is not suported!");
-		} // end catch
-	} // end method openFile
 
-	// Close file
-	public void closeReadFile() {
-		try // close file and exit
-		{
-			if (input != null)
-				input.close();
-		} // end try
-		catch (IOException ioException) {
-			JOptionPane.showMessageDialog(null, "Error closing file!");
-			System.exit(1);
-		} // end catch
-	} // end method closeFile
+
+
 
 	// Get position of first record in file
 	public long getFirst() {
