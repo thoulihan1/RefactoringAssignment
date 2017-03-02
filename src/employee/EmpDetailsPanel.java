@@ -25,7 +25,7 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
     private static final DecimalFormat format = new DecimalFormat("\u20ac ###,###,##0.00");
     private static final DecimalFormat fieldFormat = new DecimalFormat("0.00");
     boolean change = false;
-
+    private JPanel buttonPanel;
     Employee currentEmployee;
 
     String[] gender = { "", "M", "F" };
@@ -45,7 +45,7 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
 
     public JPanel detailsPanel(){
         JPanel empDetails = new JPanel(new MigLayout());
-        JPanel buttonPanel = new JPanel();
+        buttonPanel = new JPanel();
         JTextField field;
 
         empDetails.setBorder(BorderFactory.createTitledBorder("Employee Details"));
@@ -80,15 +80,21 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
         buttonPanel.add(saveChange);
         saveChange.setVisible(false);
         saveChange.setToolTipText("Save changes");
+
+
         saveChange.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("saveChange clicked");
+                //System.out.println("ActionListener 2");
+
+                System.out.println("Pressing saveChange(), calling checkInput() && !checkForChanges()");
                 if (checkInput() && !checkForChanges())
                     ;
             }
         });
         cancelChange = new JButton("Cancel");
+
 
         buttonPanel.add(cancelChange);
         cancelChange.setVisible(false);
@@ -96,7 +102,7 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
         cancelChange.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("cancelChange clicked, calling cancelChange()");
+               // System.out.println("cancelChange clicked, calling cancelChange()");
                 cancelChange();
 
             }
@@ -153,10 +159,12 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
         // message
         if (ppsField.isEditable() && ppsField.getText().trim().isEmpty()) {
             ppsField.setBackground(new Color(255, 150, 150));
+            System.out.println("Setting valid = false in checkInput()");
             valid = false;
         } // end if
-        if (ppsField.isEditable() && correctPps(ppsField.getText().trim(), currentByteStart)) {
+        if (ppsField.isEditable() && correctPps(ppsField.getText().trim(), empDetails.getCurrentByteStart())) {
             ppsField.setBackground(new Color(255, 150, 150));
+            System.out.println("S HERE etting valid = false in checkInput()");
             valid = false;
         } // end if
         if (surnameField.isEditable() && surnameField.getText().trim().isEmpty()) {
@@ -203,6 +211,7 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
 
 
 
+        System.out.println("\ncheckInput() returning " + String.valueOf(valid));
         return valid;
     }
 
@@ -225,6 +234,7 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
         else
             ppsExist = true;
 
+        System.out.println("correctPps() is returning " + String.valueOf(ppsExist));
         return ppsExist;
     }// end correctPPS
 
@@ -234,7 +244,6 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
         } else
             return false;
     }
-
 
     private void setToWhite() {
         ppsField.setBackground(UIManager.getColor("TextField.background"));
@@ -261,6 +270,7 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
             //displayRecords(currentEmployee);
         } // end else
 
+        System.out.println("checkForChanges() returning " + String.valueOf(anyChanges));
         return anyChanges;
     }// end checkForChanges
 
@@ -280,7 +290,7 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
     }// end getChangedDetails
 
     public void displayRecords(Employee thisEmployee) {
-        System.out.println("DisplayRecords" + thisEmployee.getPps());
+        System.out.println("Displaying record " + thisEmployee.getPps());
         int countGender = 0;
         int countDep = 0;
         boolean found = false;
@@ -290,12 +300,16 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
         // if Employee is null or ID is 0 do nothing else display Employee
         // details
         if (thisEmployee == null) {
+            System.out.println("if(employee==null)");
         }
 
         else if (thisEmployee.getEmployeeId() == 0) {
+            System.out.println("else if id --0;)");
         }
 
         else {
+            System.out.println("else");
+
             // find corresponding gender combo box value to current employee
             while (!found && countGender < gender.length - 1) {
                 if (Character.toString(thisEmployee.getGender()).equalsIgnoreCase(gender[countGender]))
@@ -325,17 +339,17 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
                 fullTimeCombo.setSelectedIndex(2);
         }
         change = false;
-
-
     }// end display records
 
     public void setEnabled(boolean booleanValue) {
+
         boolean search;
 
         if (booleanValue)
             search = false;
         else
             search = true;
+
         ppsField.setEditable(booleanValue);
         surnameField.setEditable(booleanValue);
         firstNameField.setEditable(booleanValue);
@@ -380,6 +394,7 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
             // remove euro sign from salary text field
             salaryField.setText(fieldFormat.format(empDetails.getCurrentEmployee().getSalary()));
             change = false;
+            System.out.println("calling setEnabled(true) setting fields editable from editDetails()");
             setEnabled(true);// enable text fields for editing
         } // end if
     }
@@ -449,6 +464,10 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
 
     public JTextField getSalaryField() {
         return salaryField;
+    }
+
+    public JPanel getButtonPanel(){
+        return buttonPanel;
     }
 
     public static EmployeeDetails getFrame() {
