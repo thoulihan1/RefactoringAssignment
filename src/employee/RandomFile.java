@@ -34,14 +34,7 @@ public class RandomFile {
 		} // end catch
 
 		finally {
-			try {
-				if (file != null)
-					file.close(); // close file
-			} // end try
-			catch (IOException ioException) {
-				JOptionPane.showMessageDialog(null, "Error closing file!");
-				System.exit(1);
-			} // end catch
+			close(file);
 		} // end finally
 	} // end createFile
 
@@ -56,7 +49,6 @@ public class RandomFile {
 		return null;
 	}
 
-	// Open file for adding or changing records
 	public void openWriteFile(String fileName) {
 			output = open(fileName, output, "rw");
 	} // end method openFile
