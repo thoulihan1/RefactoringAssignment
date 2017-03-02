@@ -21,7 +21,6 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
     private JTextField idField, ppsField, surnameField, firstNameField, salaryField;
     private static EmployeeDetails frame = new EmployeeDetails();
     private RandomFile application = new RandomFile();
-    private long currentByteStart = 0;
     private static final DecimalFormat format = new DecimalFormat("\u20ac ###,###,##0.00");
     private static final DecimalFormat fieldFormat = new DecimalFormat("0.00");
     boolean change = false;
