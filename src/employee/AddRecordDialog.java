@@ -7,20 +7,39 @@ import java.awt.event.ActionListener;
 /**
  * Created by Thomas on 2/27/17.
  */
-public class AddRecordDialog extends JDialog{
+public class AddRecordDialog extends JDialog implements ActionListener{
 
 	EmpDetailsPanel addRecordDialog;
+	JButton save;
+	JButton cancel;
 
 	public AddRecordDialog(EmployeeDetails parent){
 
 
 		addRecordDialog = new EmpDetailsPanel(parent);
 
+
+
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 
 		JScrollPane scrollPane = new JScrollPane(addRecordDialog.detailsPanel());
+
+
+
+
 		addRecordDialog.setEnabled(true);
+
+		save = new JButton("Savve");
+		cancel = new JButton("Cancel");
+
+
+		addRecordDialog.getSaveChange().setVisible(false);
+		addRecordDialog.getSaveChange().setEnabled(false);
+		addRecordDialog.getCancelChange().setVisible(false);
+
+		addRecordDialog.getButtonPanel().add(save);
+		addRecordDialog.getButtonPanel().add(cancel);
 		addRecordDialog.getIdField().setText(Integer.toString(addRecordDialog.empDetails.getNextFreeId()));
 		setContentPane(scrollPane);
 
@@ -30,17 +49,20 @@ public class AddRecordDialog extends JDialog{
 		setLocation(350, 250);
 		setVisible(true);
 
-		addRecordDialog.getSaveChange().addActionListener(new ActionListener() {
+		getRootPane().setDefaultButton(save);
+
+		save.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("ActionListener 1");
 				if(addRecordDialog.checkInput()){
-					addRecord();
+ 					addRecord();
 					dispose();
 				}
 			}
 		});
 
-		addRecordDialog.getCancelChange().addActionListener(new ActionListener(){
+		cancel.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(addRecordDialog.checkInput()){
@@ -62,9 +84,22 @@ public class AddRecordDialog extends JDialog{
 				addRecordDialog.getFirstNameField().getText().toUpperCase(),  addRecordDialog.getGenderCombo().getSelectedItem().toString().charAt(0),
 				addRecordDialog.getDepartmentCombo().getSelectedItem().toString(), Double.parseDouble(addRecordDialog.getSalaryField().getText()), fullTime);
 		this.addRecordDialog.empDetails.currentEmployee = theEmployee;
-		System.out.println("Created Employee: " + theEmployee.getPps());
-		System.out.println("Current Employee:" + this.addRecordDialog.empDetails.currentEmployee.getPps());
+		//System.out.println("Created Employee: " + theEmployee.getPps());
+		//System.out.println("Current Employee:" + this.addRecordDialog.empDetails.currentEmployee.getPps());
+		System.out.println("Calling addRecord(employee) from addRecotdDialog");
 		this.addRecordDialog.empDetails.addRecord(theEmployee);
+		System.out.println("Calling displayRecords from addRecotdDialog");
 		this.addRecordDialog.empDetails.getDetailsPanel().displayRecords(theEmployee);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == addRecordDialog.getSaveChange()){
+			System.out.println("ActionListener 1");
+			if(addRecordDialog.checkInput()){
+				addRecord();
+				dispose();
+			}
+		}
 	}
 }
