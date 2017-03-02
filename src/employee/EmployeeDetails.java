@@ -26,7 +26,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.text.DecimalFormat;
 import java.util.Random;
 import java.util.Vector;
 
@@ -111,6 +110,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 				change = false;
 			}
 		});
+
 		fileMenu.add(saveAs);
 		saveAs.setMnemonic(KeyEvent.VK_F2);
 		saveAs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F2, ActionEvent.CTRL_MASK));
@@ -288,24 +288,26 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 			application.closeReadFile();
 
 			if (currentEmployee.getEmployeeId() == 0)
-				nextRecord();
+				navigate("next");
 		}
 	}
 
+
+/*
 	private void previousRecord() {
 		// if any active record in file look for first record
 		if (empDetailsPanel.isSomeoneToDisplay()) {
-			// open file for reading
+
 			application.openReadFile(file.getAbsolutePath());
-			// get byte start in file for previous record
+
 			currentByteStart = application.getPrevious(currentByteStart);
-			// assign current Employee to previous record in file
+
 			currentEmployee = application.readRecords(currentByteStart);
-			// loop to previous record until Employee is active - ID is not 0
+
 			while (currentEmployee.getEmployeeId() == 0) {
-				// get byte start in file for previous record
+
 				currentByteStart = application.getPrevious(currentByteStart);
-				// assign current Employee to previous record in file
+
 				currentEmployee = application.readRecords(currentByteStart);
 			} // end while
 			application.closeReadFile();// close file for reading
@@ -331,6 +333,32 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 			application.closeReadFile();// close file for reading
 		}
 	}
+*/
+	private void navigate(String direction){
+		if (empDetailsPanel.isSomeoneToDisplay()) {
+
+			application.openReadFile(file.getAbsolutePath());
+
+
+			if(direction.equals("next")){
+				currentByteStart = application.getNext(currentByteStart);
+			} else
+				currentByteStart = application.getPrevious(currentByteStart);
+
+			currentEmployee = application.readRecords(currentByteStart);
+
+			while (currentEmployee.getEmployeeId() == 0) {
+
+				if(direction.equals("next")){
+					currentByteStart = application.getNext(currentByteStart);
+				} else
+					currentByteStart = application.getPrevious(currentByteStart);
+
+				currentEmployee = application.readRecords(currentByteStart);
+			} // end while
+			application.closeReadFile();// close file for reading
+		}
+	}
 
 	private void lastRecord() {
 		// if any active record in file look for first record
@@ -344,7 +372,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 			application.closeReadFile();// close file for reading
 
 			if (currentEmployee.getEmployeeId() == 0)
-				previousRecord();// look for previous record
+				navigate("previous");
 		} // end if
 	}
 
@@ -364,7 +392,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 					empDetailsPanel.displayRecords(currentEmployee);
 				}
 				else {
-					nextRecord();
+					navigate("next");
 					while (firstId != currentEmployee.getEmployeeId()) {
 
 						if (Integer.parseInt(searchByIdField.getText().trim()) == currentEmployee.getEmployeeId()) {
@@ -372,7 +400,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 							empDetailsPanel.displayRecords(currentEmployee);
 							break;
 						} else
-							nextRecord();
+							navigate("next");
 					}
 				}
 				if (!found)
@@ -402,7 +430,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 				empDetailsPanel.displayRecords(currentEmployee);
 			}
 			else {
-				nextRecord();
+				navigate("next");
 
 				while (!firstSurname.trim().equalsIgnoreCase(currentEmployee.getSurname().trim())) {
 
@@ -412,7 +440,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 						break;
 					}
 					else
-						nextRecord();
+						navigate("next");
 				}
 			}
 
@@ -460,7 +488,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 				application.closeWriteFile();// close file for writing
 				// if any active record in file display next record
 				if (empDetailsPanel.isSomeoneToDisplay()) {
-					nextRecord();// look for next record
+					navigate("next");
 					empDetailsPanel.displayRecords(currentEmployee);
 				} // end if
 			} // end if
@@ -490,16 +518,12 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 			empDetails.addElement(new Boolean(currentEmployee.getFullTime()));
 
 			allEmployee.addElement(empDetails);
-			nextRecord();// look for next record
+			navigate("next");
 		} while (firstId != currentEmployee.getEmployeeId());// end do - while
 		currentByteStart = byteStart;
 
 		return allEmployee;
 	}
-
-	// check for correct PPS format and look if PPS already in use
-
-
 
 	// check if file name has extension .dat
 	private boolean checkFileName(File fileName) {
@@ -576,11 +600,11 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 
 	// save changes to current Employee
 	public void saveChanges() {
+		System.out.println("Calling saveChanges()");
 		int returnVal = JOptionPane.showOptionDialog(frame, "Do you want to save changes to current Employee?", "Save",
 				JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
 		// if user choose to save changes, save changes
 		if (returnVal == JOptionPane.YES_OPTION) {
-
 			changeRecords();
 		} // end if
 		empDetailsPanel.displayRecords(currentEmployee);
@@ -713,16 +737,12 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 		dialog.add(buttonPanel(), "growx, pushx, span 2,wrap");
 
 		empDetailsPanel = new EmpDetailsPanel(this);
-
 		dialog.add(empDetailsPanel.detailsPanel(), "gap top 30, gap left 150, center");
 
 		//dialog.add(detailsPanel(), "gap top 30, gap left 150, center");
 		JScrollPane scrollPane = new JScrollPane(dialog);
 		getContentPane().add(scrollPane, BorderLayout.CENTER);
 		addWindowListener(this);
-
-
-
 	}// end createContentPane
 
 	// create and show main dialog
@@ -752,7 +772,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges()) {
-					previousRecord();
+					navigate("previous");
 					empDetailsPanel.displayRecords(currentEmployee);
 				}
 			}
@@ -762,7 +782,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (empDetailsPanel.checkInput() && !empDetailsPanel.checkForChanges()) {
-					nextRecord();
+					navigate("next");
 					empDetailsPanel.displayRecords(currentEmployee);
 				}
 			}
@@ -825,12 +845,10 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 
 	@Override
 	public void insertUpdate(DocumentEvent e) {
-
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
-
 	}
 
 	// DocumentListener methods
@@ -904,6 +922,9 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 		return file;
 	}
 
+	public long getCurrentByteStart(){
+		return currentByteStart;
+	}
 	public Employee getCurrentEmployee(){
 		return currentEmployee;
 	}
