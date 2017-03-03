@@ -1,6 +1,5 @@
 package employee;
 
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -11,13 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
-public class SearchDialog extends JDialog{
+public abstract class SearchDialog extends JDialog{
 	EmployeeDetails parent;
 	JButton search, cancel;
 	JTextField searchField;
@@ -28,7 +26,6 @@ public class SearchDialog extends JDialog{
 	JLabel searchLabel;
 
 	public SearchDialog(EmployeeDetails parent) {
-		//setTitle("Search by Surname");
 		setModal(true);
 		this.parent = parent;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -71,58 +68,10 @@ public class SearchDialog extends JDialog{
 		searchPanel.add(textPanel);
 		searchPanel.add(buttonPanel);
 
-
-		
 		return searchPanel;
 	}
 
-	public void addLabelAndListener(){
-
-	}
-
-	/*
-	public void setButtonListeners(int mode){
-		if(mode==1){
-			searchPanel.add(new JLabel("Search by ID"));
-			textPanel.add(searchLabel = new JLabel("Enter ID:"));
-			
-			search.addActionListener(new ActionListener(){
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					try {
-						Double.parseDouble(searchField.getText());
-						parent.searchByIdField.setText(searchField.getText());
-						parent.searchEmployeeById();
-						dispose();
-					}
-					catch (NumberFormatException num) {
-						searchField.setBackground(new Color(255, 150, 150));
-						JOptionPane.showMessageDialog(null, "Wrong ID format!");
-					}		
-				}	
-			});
-			
-		} else if(mode==2){
-			searchPanel.add(new JLabel("Search by Surname"));
-			textPanel.add(searchLabel = new JLabel("Enter Surname:"));
-			
-			search.addActionListener(new ActionListener(){
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					parent.searchBySurnameField.setText(searchField.getText());
-					parent.searchEmployeeBySurname();
-					dispose();
-				}
-				
-			});
-			this.parent.searchBySurnameField.setText(searchField.getText());
-			this.parent.searchEmployeeBySurname();
-			dispose();
-		}
-	}
-	*/
+	public abstract void addLabelAndListener();
 }
 
 
