@@ -188,14 +188,17 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 		ActionListener idSearchListener = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				searchEmployeeById();
+				search("ID");
+
+				//searchEmployeeById();
 			}
 		};
 
 		ActionListener surnameSearchListener = new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				searchEmployeeBySurname();
+				search("Surname");
+				//searchEmployeeBySurname();
 			}
 		};
 
@@ -292,48 +295,6 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 		}
 	}
 
-
-/*
-	private void previousRecord() {
-		// if any active record in file look for first record
-		if (empDetailsPanel.isSomeoneToDisplay()) {
-
-			application.openReadFile(file.getAbsolutePath());
-
-			currentByteStart = application.getPrevious(currentByteStart);
-
-			currentEmployee = application.readRecords(currentByteStart);
-
-			while (currentEmployee.getEmployeeId() == 0) {
-
-				currentByteStart = application.getPrevious(currentByteStart);
-
-				currentEmployee = application.readRecords(currentByteStart);
-			} // end while
-			application.closeReadFile();// close file for reading
-		}
-	}
-
-	private void nextRecord() {
-
-		if (empDetailsPanel.isSomeoneToDisplay()) {
-
-			application.openReadFile(file.getAbsolutePath());
-
-			currentByteStart = application.getNext(currentByteStart);
-
-			currentEmployee = application.readRecords(currentByteStart);
-
-			while (currentEmployee.getEmployeeId() == 0) {
-
-				currentByteStart = application.getNext(currentByteStart);
-
-				currentEmployee = application.readRecords(currentByteStart);
-			}
-			application.closeReadFile();// close file for reading
-		}
-	}
-*/
 	private void navigate(String direction){
 		if (empDetailsPanel.isSomeoneToDisplay()) {
 
@@ -355,8 +316,8 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 					currentByteStart = application.getPrevious(currentByteStart);
 
 				currentEmployee = application.readRecords(currentByteStart);
-			} // end while
-			application.closeReadFile();// close file for reading
+			}
+			application.closeReadFile();
 		}
 	}
 
@@ -376,6 +337,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 		} // end if
 	}
 
+	/*
 	// search Employee by ID
 	public void searchEmployeeById() {
 		boolean found = false;
@@ -394,7 +356,6 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 				else {
 					navigate("next");
 					while (firstId != currentEmployee.getEmployeeId()) {
-
 						if (Integer.parseInt(searchByIdField.getText().trim()) == currentEmployee.getEmployeeId()) {
 							found = true;
 							empDetailsPanel.displayRecords(currentEmployee);
@@ -415,7 +376,7 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 		searchByIdField.setText("");
 	}
 
-	// search Employee by surname
+
 	public void searchEmployeeBySurname() {
 		boolean found = false;
 
@@ -448,6 +409,40 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 				JOptionPane.showMessageDialog(null, "Employee not found!");
 		}
 		searchBySurnameField.setText("");
+	}
+*/
+	public void search(String param){
+		int i=0;
+		application.openReadFile(file.getAbsolutePath());
+		long end = application.getLast();
+		application.closeReadFile();
+		if(empDetailsPanel.isSomeoneToDisplay()){
+			firstRecord();
+			if(param.equals("ID")){
+				do {
+					if(searchByIdField.getText().trim().equals(String.valueOf(currentEmployee.getEmployeeId()))){
+						empDetailsPanel.displayRecords(currentEmployee);
+						return;
+					}
+					navigate("next");
+					i++;
+
+				} while(i*RandomAccessEmployeeRecord.SIZE!=end);
+				searchByIdField.setText("");
+			} else {
+				do{
+					if(searchBySurnameField.getText().toString().trim().equalsIgnoreCase(currentEmployee.getSurname().trim())){
+						empDetailsPanel.displayRecords(currentEmployee);
+						return;
+					}
+					navigate("next");
+					i++;
+				} while (i*RandomAccessEmployeeRecord.SIZE!=end);
+				searchBySurnameField.setText("");
+			}
+			firstRecord();
+			JOptionPane.showMessageDialog(null, "Employee not found!");
+		}
 	}
 
 	// get next free ID from Employees in the file

@@ -30,14 +30,13 @@ public class SearchBySurnameDialog extends SearchDialog{
 		textPanel.add(searchLabel = new JLabel("Enter Surname:"));
 
 		search.addActionListener(new ActionListener(){
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent.searchBySurnameField.setText(searchField.getText());
-				parent.searchEmployeeBySurname();
+				parent.search("Surname");
+				//parent.searchEmployeeBySurname();
 				dispose();
 			}
-
 		});
 	}
 }

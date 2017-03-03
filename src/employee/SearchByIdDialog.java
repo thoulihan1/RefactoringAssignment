@@ -20,7 +20,6 @@ import javax.swing.border.EtchedBorder;
 
 public class SearchByIdDialog extends SearchDialog{
 
-
 	public SearchByIdDialog(EmployeeDetails parent) {
 		super(parent);
 	}
@@ -29,7 +28,7 @@ public class SearchByIdDialog extends SearchDialog{
 	public void addLabelAndListener(){
 		searchPanel.add(new JLabel("Search by ID"));
 		textPanel.add(searchLabel = new JLabel("Enter ID:"));
-		System.out.println("Calling code in new constructor");
+		//System.out.println("Calling code in new constructor");
 
 		search.addActionListener(new ActionListener() {
 			@Override
@@ -37,7 +36,9 @@ public class SearchByIdDialog extends SearchDialog{
 				try {
 					Double.parseDouble(searchField.getText());
 					parent.searchByIdField.setText(searchField.getText());
-					parent.searchEmployeeById();
+					parent.search("ID");
+
+					//parent.searchEmployeeById();
 					dispose();
 				}
 				catch (NumberFormatException num) {
