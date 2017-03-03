@@ -593,33 +593,22 @@ public class EmployeeDetails extends JFrame implements  ItemListener, DocumentLi
 				// if user chooses to save file, save file
 				if (returnVal == JOptionPane.YES_OPTION) {
 					saveFile();// save file
-					// delete generated file if user saved details to other file
-					if (file.getName().equals(generatedFileName))
-						file.delete();// delete file
-					System.exit(0);// exit application
-				} // end if
-				// else exit application
-				else if (returnVal == JOptionPane.NO_OPTION) {
-					// delete generated file if user chooses not to save file
-					if (file.getName().equals(generatedFileName))
-						file.delete();// delete file
-					System.exit(0);// exit application
-				} // end else if
-			} // end if
+				}
+				exit();
+			}
 			else {
-				// delete generated file if user chooses not to save file
-				if (file.getName().equals(generatedFileName))
-					file.delete();// delete file
-				System.exit(0);// exit application
-			} // end else
-			// else exit application
+				exit();
+			}
 		} else {
-			// delete generated file if user chooses not to save file
-			if (file.getName().equals(generatedFileName))
-				file.delete();// delete file
-			System.exit(0);// exit application
+			exit();
 		} // end else
 	}// end exitApp
+
+	public void exit(){
+		if(file.getName().equals(generatedFileName))
+			file.delete();
+		System.exit(0);
+	}
 
 	// generate 20 character long file name
 	private String getFileName() {
