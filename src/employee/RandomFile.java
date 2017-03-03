@@ -68,15 +68,14 @@ public class RandomFile {
 		}
 	}
 
-	// Close file for adding or changing records
+
 	public void closeWriteFile() {
 		close(output);
-	} // end closeFile
+	}
 
-	// Close file
-	public void closeReadFile() {
+ 	public void closeReadFile() {
 		close(input);
-	} // end method closeFile
+	}
 
 	// Add records to file
 	public long addRecords(Employee employeeToAdd) {
@@ -215,6 +214,8 @@ public class RandomFile {
 		}// end catch
 		return byteToStart;
 	}// end getPrevious
+
+
 
 	// Get object from file in specified position
 	public Employee readRecords(long byteToStart) {

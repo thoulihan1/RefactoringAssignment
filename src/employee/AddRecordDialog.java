@@ -30,7 +30,7 @@ public class AddRecordDialog extends JDialog implements ActionListener{
 
 		addRecordDialog.setEnabled(true);
 
-		save = new JButton("Savve");
+		save = new JButton("Save");
 		cancel = new JButton("Cancel");
 
 

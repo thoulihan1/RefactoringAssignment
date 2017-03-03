@@ -33,7 +33,7 @@ public class SearchBySurnameDialog extends SearchDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				parent.searchBySurnameField.setText(searchField.getText());
-				parent.search("Surname");
+				parent.search(parent.SEARCH_SURNAME);
 				//parent.searchEmployeeBySurname();
 				dispose();
 			}

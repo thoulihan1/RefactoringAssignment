@@ -28,9 +28,7 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
     Employee currentEmployee;
 
     String[] gender = { "", "M", "F" };
-
     String[] department = { "", "Administration", "Production", "Transport", "Management" };
-
     String[] fullTime = { "", "Yes", "No" };
 
 
@@ -123,10 +121,6 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
         return empDetails;
     }
 
-    private void cancelChange() {
-        setEnabled(false);
-        displayRecords(empDetails.getCurrentEmployee());
-    }
 
     public void setUpField(JTextField field){
         field.setEditable(false);
@@ -152,18 +146,24 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
         });
     }
 
+    private void cancelChange() {
+        setEnabled(false);
+        displayRecords(empDetails.getCurrentEmployee());
+    }
+
+
     public boolean checkInput() {
         boolean valid = true;
         // if any of inputs are in wrong format, colour text field and display
         // message
         if (ppsField.isEditable() && ppsField.getText().trim().isEmpty()) {
             ppsField.setBackground(new Color(255, 150, 150));
-            System.out.println("Setting valid = false in checkInput()");
+            //System.out.println("Setting valid = false in checkInput()");
             valid = false;
         } // end if
         if (ppsField.isEditable() && correctPps(ppsField.getText().trim(), empDetails.getCurrentByteStart())) {
             ppsField.setBackground(new Color(255, 150, 150));
-            System.out.println("S HERE etting valid = false in checkInput()");
+            //System.out.println("S HERE etting valid = false in checkInput()");
             valid = false;
         } // end if
         if (surnameField.isEditable() && surnameField.getText().trim().isEmpty()) {
@@ -210,7 +210,7 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
 
 
 
-        System.out.println("\ncheckInput() returning " + String.valueOf(valid));
+        //System.out.println("\ncheckInput() returning " + String.valueOf(valid));
         return valid;
     }
 
@@ -332,7 +332,7 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
             departmentCombo.setSelectedIndex(countDep);
             salaryField.setText(format.format(thisEmployee.getSalary()));
             // set corresponding full time combo box value to current employee
-            if (thisEmployee.getFullTime() == true)
+            if (thisEmployee.getFullTime())
                 fullTimeCombo.setSelectedIndex(1);
             else
                 fullTimeCombo.setSelectedIndex(2);
@@ -398,8 +398,6 @@ public class EmpDetailsPanel implements DocumentListener, ItemListener {
         } // end if
     }
     // display current Employee details
-
-
 
     @Override
     public void insertUpdate(DocumentEvent e) {

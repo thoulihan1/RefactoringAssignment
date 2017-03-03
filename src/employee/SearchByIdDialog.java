@@ -36,7 +36,7 @@ public class SearchByIdDialog extends SearchDialog{
 				try {
 					Double.parseDouble(searchField.getText());
 					parent.searchByIdField.setText(searchField.getText());
-					parent.search("ID");
+					parent.search(parent.SEARCH_ID);
 
 					//parent.searchEmployeeById();
 					dispose();
